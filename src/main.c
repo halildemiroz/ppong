@@ -1,22 +1,28 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include "game.h"
 
-#include <SDL2/SDL.h>
+#define FPS 60
+#define FRAME_DELAY (1000 / FPS)
 
 int main(int argc, char* argv[]){
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window* window;
-    window = SDL_CreateWindow("ppong",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,800,600,0);
-    
-    bool quit = false;
-    SDL_Event event;
-    while(!quit){
-        while(SDL_PollEvent(&e){
-            switch(event.type){
-                case SDL_QUIT:
-                    quit = true;
-                    break;
-            }
-        }
-    }
+	gameInit("Ppong", 800, 600, false);
+	
+	unsigned int frameStart, frameTime;
+	
+	while(game.isrunning){
+		frameStart = SDL_GetTicks();
+		
+		// Game functions
+		gameUpdate();
+		gameRender();
+		gameHandleEvents();
+
+		frameTime = SDL_GetTicks() - frameStart;
+		if(FRAME_DELAY > frameTime){
+			SDL_Delay(FRAME_DELAY - frameTime);
+		}
+	}
+
+	// Clean up
+	gameClean();
+	return 0;
 }

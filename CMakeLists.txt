@@ -9,6 +9,8 @@ link_directories(/opt/homebrew/Cellar/SDL2/2.32.2/lib)
 link_libraries(SDL2main SDL2)
 
 add_executable(ppong
+	src/game.c
 	src/main.c
+	src/racket.c
 	)
 
