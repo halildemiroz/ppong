@@ -1,5 +1,7 @@
 #include "game.h"
 #include "racket.h"
+#include "ball.h"
+#include "ai.h"
 
 Game game;
 
@@ -22,24 +24,35 @@ void gameInit(const char *title, int width, int height, bool isfullscreen){
 	}
 
 	racketInit();
+	ballInit();
+	aiInit();
 
 	game.isrunning = true;
+	game.score = 0;
 }
 
 void gameRender(){
 	SDL_RenderClear(game.grenderer);
 	// Render stuff
+	ballRender(game.grenderer, ball.x, ball.y, ball.radius);
 	racketRender();
+	aiRender();
+
 	SDL_SetRenderDrawColor(game.grenderer, 0, 0, 0, 255);
 	SDL_RenderPresent(game.grenderer);
 }
 // topun ve raketin updatei için
-void gameUpdate(){}
+void gameUpdate(){
+	ballMove();
+	aiMove();
+}
 
 void gameHandleEvents(){
 	SDL_Event event;
 	SDL_PollEvent(&event);
+
 	racketMove();
+	
 	switch(event.type){
 		case SDL_QUIT:
 			game.isrunning = false;

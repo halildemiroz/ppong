@@ -5,6 +5,7 @@ typedef struct {
 	SDL_Window* gwindow;
 	SDL_Renderer* grenderer;
 	bool isrunning;
+	int score;
 } Game;
 
 extern Game game;
