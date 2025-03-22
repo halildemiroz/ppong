@@ -1,4 +1,5 @@
 #include "game.h"
+#include "font.h"
 #include "racket.h"
 #include "ball.h"
 #include "ai.h"
@@ -26,16 +27,19 @@ void gameInit(const char *title, int width, int height, bool isfullscreen){
 	racketInit();
 	ballInit();
 	aiInit();
+	fontInit(game.grenderer, "../assets/font3.ttf");
 
 	game.isrunning = true;
-	game.score = 0;
+	game.scorei = 0;
+	game.scoreai = 0;
 }
 
 void gameRender(){
 	SDL_RenderClear(game.grenderer);
 	// Render stuff
 	ballRender(game.grenderer, ball.x, ball.y, ball.radius);
-	racketRender();
+	fontRender(game.grenderer);
+	racketRender(game.grenderer);
 	aiRender();
 
 	SDL_SetRenderDrawColor(game.grenderer, 0, 0, 0, 255);
@@ -65,6 +69,7 @@ void gameHandleEvents(){
 void gameClean(){
 	SDL_DestroyWindow(game.gwindow);
 	SDL_DestroyRenderer(game.grenderer);
+	fontClean();
 	SDL_Quit();
 	printf("Game cleaned\n");
 }

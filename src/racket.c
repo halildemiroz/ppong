@@ -16,10 +16,10 @@ void racketInit(){
 	printf("Racket initialized\n");
 }
 
-void racketRender(){
-	SDL_SetRenderDrawColor(game.grenderer, 255,255,255,255);
+void racketRender(SDL_Renderer *renderer){
+	SDL_SetRenderDrawColor(renderer, 255,255,255,255);
 	SDL_Rect racketRect = {racket.x, racket.y, racket.width, racket.height};
-	SDL_RenderFillRect(game.grenderer, &racketRect);
+	SDL_RenderFillRect(renderer, &racketRect);
 }
 
 void racketMove() {

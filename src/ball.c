@@ -7,12 +7,12 @@
 Ball ball;
 
 // Previous positions for tracking movement
-float racket_prev_y = 0;
-float ai_prev_y = 0;
+int racket_prev_y = 0;
+int ai_prev_y = 0;
 
 // Constants for ball physics
-#define MAX_BALL_SPEED 10.0f
-#define MIN_BALL_SPEED 5.0f
+#define MAX_BALL_SPEED 10
+#define MIN_BALL_SPEED 5
 #define MAX_ANGLE_FACTOR 0.8f
 
 void ballInit() {
@@ -41,7 +41,7 @@ void ballRender(SDL_Renderer *renderer, int cx, int cy, int radius){
 }
 
 // Helper function to calculate speed from velocity components
-float calculateSpeed(float vx, float vy) {
+float calculateSpeed(int vx, int vy) {
     return sqrtf(vx * vx + vy * vy);
 }
 
@@ -67,7 +67,7 @@ void ballCollisionRacket(){
        ball.y - ball.radius <= racket.y + racket.height)
     {
         // Calculate where on the racket the ball hit (0.0 = top, 1.0 = bottom)
-        float hitPosition = (ball.y - racket.y) / racket.height;
+        int hitPosition = (ball.y - racket.y) / racket.height;
         
         // Constrain between 0 and 1
         if(hitPosition < 0.0f) hitPosition = 0.0f;
@@ -175,10 +175,24 @@ void ballCollisionWall(){
     }
     
     // Left and right walls (scoring)
-    if(ball.x >= 800 - ball.radius || ball.x <= 0 + ball.radius){
+    if(ball.x <= 0 + ball.radius){
         SDL_Delay(500);
         ballResetPos();
-        game.score += 1;
+        game.scoreai += 1;
+        ball.vy += 2;
+        
+        // Increase difficulty - using fixed values instead of MAX_SPEED
+        if(racket.speed < 10.0f) {
+            racket.speed += 0.5f;
+        }
+        if(ai.speed < 10.0f) {
+            ai.speed += 0.5f;
+        }
+    }
+    else if(ball.x >= 800 - ball.radius){
+        SDL_Delay(500);
+        ballResetPos();
+        game.scorei += 1;
         ball.vy += 2;
         
         // Increase difficulty - using fixed values instead of MAX_SPEED

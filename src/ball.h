@@ -1,5 +1,4 @@
-#ifndef BALL_H
-#define BALL_H
+#pragma once
 
 #include <SDL2/SDL.h>
 #include <stdbool.h>
@@ -21,32 +20,6 @@ void ballCollisionRacket();
 void ballCollisionAi();
 void ballResetPos();
 void ballCollisionWall();
-float calculateSpeed(float vx, float vy);
+float calculateSpeed(int vx, int vy);
 
-#endif
-/*
-#pragma once
 
-#include <SDL2/SDL.h>
-
-typedef struct{
-	int radius,x,y;
-	int vx,vy;
-} Ball;
-
-extern Ball ball;
-
-void ballInit();
-
-void ballRender(SDL_Renderer* renderer, int x, int y, int radius);
-
-void ballMove();
-
-void ballCollisionRacket();
-
-void ballCollisionAi();
-
-void ballCollisionWall();
-
-void ballResetPos();
-*/

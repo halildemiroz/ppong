@@ -14,7 +14,7 @@ extern Racket racket;
 //game init
 void racketInit();
 //game render
-void racketRender();
+void racketRender(SDL_Renderer *renderer);
 //game update
 void racketMove();
 
