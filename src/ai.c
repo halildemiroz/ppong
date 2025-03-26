@@ -19,11 +19,12 @@ void aiRender(){
 }
 
 void aiMove(){
+	if(ball.x > 400){
 	if(ball.y < ai.y + ai.height / 2 && ai.y >= 20){
 		ai.y -= ai.speed;
 	}
 	if(ball.y > ai.y + ai.height / 2 && ai.y <= 580 - ai.height){
 		ai.y += ai.speed;
 	}
-}
+}}
 
