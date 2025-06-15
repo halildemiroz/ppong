@@ -1,4 +1,3 @@
-#include "game.h"
 #include "racket.h"
 
 #define MAX_SPEED 10.0f
@@ -24,7 +23,6 @@ void racketRender(SDL_Renderer *renderer){
 
 void racketMove() {
     const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-
     if (keystate[SDL_SCANCODE_W] && racket.y >= 20) {
         racket.y -= racket.speed;
     }
